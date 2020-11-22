@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * @author Nicolas Ramy
  */
 public class Agent {
-    private final int finalPm;
+    protected final int finalPm;
 
     private int x;
     private int y;

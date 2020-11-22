@@ -19,10 +19,16 @@ public class Base extends Agent{
 
     public void stockageRessource(Ressource r){
         this.inventaire.add(r);
+    }
+    public ArrayList<Soldat> getAllSoldat(){
+        ArrayList<Soldat> soldat = new ArrayList<>();
+        for(Agent s:infanterie){
+            if(s instanceof Soldat){
+                soldat.add(new Soldat((Soldat) s));
+            }
         }
-        public Soldat[] getAllSoldat(){
-
-        }
+        return soldat;
+    }
 
     public void utilisationRessource(Ressource r){
         this.inventaire.remove(r);
@@ -35,11 +41,6 @@ public class Base extends Agent{
     public int getCurrentHp() {
         return currentHp;
     }
-
-    /*public void destruction(){
-        if (this.currentHp == 0)
-
-    }*/
 
 
 }

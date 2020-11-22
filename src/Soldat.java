@@ -10,14 +10,14 @@ public class Soldat extends Agent {
         this.nom = Nom.genereNom();
     }
 
-    public void ramasse(Ressource e) {
-        if (inventaire.size() < capacite)
-            inventaire.add(e);
+    public Soldat(Soldat s){
+        super(s.finalPm,s.getX(),s.getY());
+        this.nom=s.nom;
+        this.inventaire= s.inventaire;
     }
 
-    public void drop(Ressource e) {
-        if (!inventaire.isEmpty())
-            inventaire.remove(e);
+    public int getCombatPower(){
+        return this.inventaire.size()==0 ? 2:4;
     }
 
 }

@@ -44,9 +44,26 @@ public class Simulation {
     public String tourCraft(){}
     public String tourNuit(){
         initNuit();
-
+        ArrayList<Soldat> soldats = base.getAllSoldat();
+        while(plateau.aliveMonster()&&soldats.size()!=0){
+            plateau.placeSoldat(soldats);
+            for(Soldat soldat:soldats){
+                if(soldat.getX()!=-1){
+                    plateau.soldatMoveToNearestMonster(soldat);
+                }
+            }
+            plateau.soldatAttackMonster();
+            plateau.monsterMovement();
+            plateau.monsterAttackBase(this.base);
+        }
+        if(plateau.aliveMonster()){
+            return "Défaite";
+        }
+        return "Victoire";
     }
-    public void initNuit(){
+
+
+    private void initNuit(){
         this.nbMonstre+=1;
         //Génére et place les monstres sur le plateau
         for (int i=0;i<nbMonstre;i++){
