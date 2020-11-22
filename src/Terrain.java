@@ -4,7 +4,7 @@ public final class Terrain {
     private static final int NBCARAFFICHES = 5;
     public final int nbLignes;
     public final int nbColonnes;
-    private Ressource[][] terrain;
+    private final Ressource[][] terrain;
 
     public Terrain() {
         this(20, 20);

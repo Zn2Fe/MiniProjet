@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 
 public class Soldat extends Agent {
-    private final int capacite = 1;
-    private String nom;
+    private final String nom;
 
     public Soldat() {
         super(3, -1, -1);
-        this.inventaire = new ArrayList<Ressource>();
+        this.inventaire = new ArrayList<>();
         this.nom = Nom.genereNom();
     }
 

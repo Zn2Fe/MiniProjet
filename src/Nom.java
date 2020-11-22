@@ -1,6 +1,6 @@
 public class Nom {
-        private static char[] voyelles = {'a','e','i','o','u'};
-        private static char[] consonnes = {'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z'};
+        private static final char[] voyelles = {'a','e','i','o','u'};
+        private static final char[] consonnes = {'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z'};
 
         private Nom(){
         }
@@ -10,10 +10,7 @@ public class Nom {
         }
 
         public static boolean estPair(int n){
-            if(n%2!=0)
-                return false;
-            else
-                return true;
+            return n % 2 == 0;
         }
 
         public static char rendVoyelle(){
@@ -25,14 +22,14 @@ public class Nom {
         }
 
         public static String genereNom(){
-            String ch = "";
+            StringBuilder ch = new StringBuilder();
             for(int i=0;i<rendAlea(3,6);i++){
                 if(estPair(i))
-                    ch = ch + rendConsonne();
+                    ch.append(rendConsonne());
                 else
-                    ch = ch + rendVoyelle();
+                    ch.append(rendVoyelle());
             }
-            return ch;
+            return ch.toString();
         }
     }
 

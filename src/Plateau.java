@@ -6,7 +6,7 @@ public class Plateau {
 
     public final int nbLignes;
     public final int nbColonnes;
-    private Agent[][] plateau;
+    private final Agent[][] plateau;
 
     public Plateau(int nbLignes, int nbColonnes) {
         if(nbLignes > NBLIGNESMAX) {

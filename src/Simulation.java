@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Simulation {
-    public Terrain terrain;
-    public Plateau plateau;
-    public Base base;
+    public final Terrain terrain;
+    public final Plateau plateau;
+    public final Base base;
     public int nbMonstre;
 
     /**

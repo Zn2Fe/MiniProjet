@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Ouvrier extends Agent {
     private final int capacite = 5;
-    private String nom;
+    private final String nom;
     private int pm;
 
     public Ouvrier() {

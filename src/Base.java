@@ -1,15 +1,14 @@
 import java.util.ArrayList;
 
 public class Base extends Agent{
-    private ArrayList<Agent> infanterie;
-    private final int finalHp= 3;
+    private final ArrayList<Agent> infanterie;
     private int currentHp;
 
     public Base(int x, int y) {
         super(0, x ,y);
         this.inventaire = new ArrayList<>();
         this.infanterie = new ArrayList<>();
-        this.currentHp = finalHp;
+        this.currentHp = 3;
 
     }
 
@@ -44,9 +43,6 @@ public class Base extends Agent{
         }
         infanterie.removeAll(ouvriers);
         return ouvriers;
-    }
-    public void utilisationRessource(Ressource r){
-        this.inventaire.remove(r);
     }
 
     public void prendreUnCoup() {
