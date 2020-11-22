@@ -39,9 +39,9 @@ public class Simulation {
     public String tourJour(){
         initJour();
         ArrayList<Ouvrier> ouvriers = base.getAllOuvrier();
-        for(Ouvrier o:ouvriers){
-            while(/*est ce que l'ouvrier a de la place*/){
-              /*trouev la ressource la plus proche*/
+        for(int i = 0; i< ouvriers.size(); i++){
+            while(!ouvriers.get(i).inventairePlein()){
+              //je suis en train de faire movetoNearestressource et la booleenne//
               /*verifie qu'il peut rentrer-> break */
               /*va a la ressource la plus proche*/
             }

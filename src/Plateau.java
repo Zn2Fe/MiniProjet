@@ -54,6 +54,20 @@ public class Plateau {
         this.deplacer(x,y,soldat);
     }
 
+    public void ouvrierMoveToNearestRessource(Ouvrier ouvrier){
+        int x = ouvrier.getX();
+        int y = ouvrier.getY();
+        for(int i=ouvrier.getX()-2;i<ouvrier.getX()+2;i++){
+            for(int j=ouvrier.getY()-2;j<ouvrier.getY()+2;j++){
+                if(isRessourceNear(i,j)&& !this.caseEstVide(i,j)){
+                    x=i;
+                    y=j;
+                }
+            }
+        }
+        this.deplacer(x,y,soldat);
+    }
+
     private boolean isMonsterNear(int x, int y){
         for(int i=x-1;i<x+1;i++){
             for (int j=y-1;y<y+1;j++){

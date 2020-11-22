@@ -17,7 +17,7 @@ public class Ouvrier extends Agent {
     }
 
     public void ramasse(Ressource e) {
-        if (inventaire.size() < capacite)
+        if (!inventairePlein())
             inventaire.add(e);
     }
 
@@ -31,6 +31,16 @@ public class Ouvrier extends Agent {
             new Ressource(GameData.RESSOURCE_TYPE[0][1], 1);
     }
 
-}
+    public boolean inventairePlein() {
+        if (inventaire.size() < capacite)
+            return false;
+        else
+            return true;
+    }
+
+
+    }
+
+
 
 
