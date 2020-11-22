@@ -20,12 +20,9 @@ public class Base extends Agent{
     public void stockageRessource(Ressource r){
         this.inventaire.add(r);
         }
+        public Soldat[] getAllSoldat(){
 
-
-    public void sortieAgent(Agent a){
-        this.infanterie.remove(a);
         }
-
 
     public void utilisationRessource(Ressource r){
         this.inventaire.remove(r);
