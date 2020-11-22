@@ -39,20 +39,48 @@ public class Simulation {
     public String tourJour(){
         initJour();
         ArrayList<Ouvrier> ouvriers = base.getAllOuvrier();
-        for(int i = 0; i< ouvriers.size(); i++){
-            while(!ouvriers.get(i).inventairePlein()){
-              //je suis en train de faire movetoNearestressource et la booleenne//
-              /*verifie qu'il peut rentrer-> break */
-              /*va a la ressource la plus proche*/
+        for(Ouvrier o:ouvriers ){
+            while(o.inventairePlein()){
+                Ressource nearestRessource = getNearestRessource(o);
+                if(!(nearestRessource.getX()-GameData.baseX+nearestRessource.getY()-GameData.baseY>o.getPm())){
+                    o.seDeplacer(nearestRessource.getX(),nearestRessource.getY());
+                    Ressource var1 = terrain.videCase(o.getX(),o.getY());
+                    o.ramasse(var1);
+                }
+                else{
+                    break;
+                }
             }
-            /*rentre*/
+            o.seDeplacer(GameData.baseX,GameData.baseY);
+            base.stockageAgent(o);
         }
+        base.craftAll();
+        return "fin du jour";
+    }
+    private Ressource getNearestRessource(Ouvrier o){
+        ArrayList<Ressource> ressources = new ArrayList<>();
+        for(int i=0;i< terrain.nbLignes;i++){
+            for(int j=0;j< terrain.nbColonnes;j++){
+                if(!terrain.caseEstVide(i,j)){
+                    ressources.add(terrain.getCase(i,j));
+                }
+            }
+        }
+        Ressource nearestRessource = ressources.get(0);
+        for(Ressource ressourceItem:ressources){
+            if(o.distance(ressourceItem.getX(),ressourceItem.getY()) <
+                    o.distance(nearestRessource.getX(),nearestRessource.getY())){
+                nearestRessource = ressourceItem;
+            }
+        }
+        return nearestRessource;
     }
 
     private void initJour(){
+        base.videInventaire();
         int nbRessource = (terrain.nbLignes* terrain.nbColonnes)/GameData.RESSOURCE_DENSITY;
         for(int i=0;i< terrain.nbLignes;i++){
-            for(int j=0;i< terrain.nbColonnes;j++){
+            for(int j=0;j < terrain.nbColonnes;j++){
                 terrain.videCase(i,j);
             }
         }
@@ -67,11 +95,12 @@ public class Simulation {
         }
     }
 
-    public String tourCraft(){}
+
     public String tourNuit(){
         initNuit();
         ArrayList<Soldat> soldats = base.getAllSoldat();
-        while(plateau.aliveMonster()&&soldats.size()!=0){
+
+        while(plateau.aliveMonster()&&base.getCurrentHp()!=0){
             plateau.placeSoldat(soldats);
             for(Soldat soldat:soldats){
                 if(soldat.getX()!=-1){

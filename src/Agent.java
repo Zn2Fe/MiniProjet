@@ -8,7 +8,6 @@ public class Agent {
 
     private int x;
     private int y;
-    private int pm;
 
     protected ArrayList<Ressource> inventaire;
 
@@ -18,9 +17,8 @@ public class Agent {
      */
     public Agent(int fpm,int x,int y) {
         this.finalPm = fpm;
-        this.pm = fpm;
         this.x=x;
-        this.x=y;
+        this.y=y;
     }
 
     public int getX() {
@@ -37,11 +35,8 @@ public class Agent {
      * @param y ordonn&eacute;es de la case d'arriv&eacute;e
      */
     public void seDeplacer(int x,int y){
-        if(this.pm < Math.abs(this.x-x)+Math.abs(this.y-y)){
-            this.pm -= (Math.abs(this.x-x)+Math.abs(this.y-y));
             this.x = x;
             this.y = y;
-        }
     }
 
     public double distance(int x, int y){

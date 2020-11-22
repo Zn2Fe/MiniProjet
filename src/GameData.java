@@ -12,8 +12,8 @@ public class GameData{
     public static Ressource newRandomRessource(){
         int randomType = rng(0,2);
         String ressourceNom = RESSOURCE_TYPE[randomType][randomType==0 ? rng(0,2):0];
-        int ressourceQuantité = (randomType==0 ? 1 : rng(0,3));
-        return new Ressource(ressourceNom,ressourceQuantité);
+        int ressourceQuantite = (randomType==0 ? 1 : rng(0,3));
+        return new Ressource(ressourceNom,ressourceQuantite);
     }
 
     public static Monstre newRandomMonster(){

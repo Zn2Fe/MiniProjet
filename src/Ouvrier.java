@@ -3,21 +3,28 @@ import java.util.ArrayList;
 public class Ouvrier extends Agent {
     private final int capacite = 5;
     private String nom;
+    private int pm;
 
     public Ouvrier() {
         super(50, -1, -1);
-        this.inventaire = new ArrayList<Ressource>();
+        this.inventaire = new ArrayList<>(capacite);
         this.nom = Nom.genereNom();
     }
 
-    public Ouvrier(Ouvrier o) {
-        super(o.finalPm,o.getX(), o.getY());
-        this.nom = o.nom;
-        this.inventaire = o.inventaire;
+    @Override
+    public void seDeplacer(int x, int y) {
+        if(this.pm < Math.abs(this.getX()-x)+Math.abs(this.getX()-y)) {
+            this.pm -= (Math.abs(this.getX() - x) + Math.abs(this.getX() - y));
+            super.seDeplacer(x, y);
+        }
+    }
+
+    public int getPm() {
+        return pm;
     }
 
     public void ramasse(Ressource e) {
-        if (!inventairePlein())
+        if (inventairePlein())
             inventaire.add(e);
     }
 
@@ -26,16 +33,31 @@ public class Ouvrier extends Agent {
             inventaire.remove(e);
     }
 
-    public void craftSword(Ressource e) {
-        if (e.getQuantite() == 3 && e.type.equals(GameData.RESSOURCE_TYPE[1][0]) && getX() == -1 && getY() == -1)
-            new Ressource(GameData.RESSOURCE_TYPE[0][1], 1);
+    public void craftAllSword() {
+        ArrayList<Ressource> ressources = new ArrayList<>();
+        for(Ressource ressource:this.inventaire){
+            if(ressource.type.equals(GameData.RESSOURCE_TYPE[1][0])){
+                ressources.add(ressource);
+            }
+        }
+        if(ressources.size()!=0){
+            int nbMetal=0;
+            for (Ressource ressource:ressources){
+                nbMetal+=ressource.getQuantite();
+            }
+            for(int i=0;i<nbMetal%3;i++){
+                this.ramasse(new Ressource(GameData.RESSOURCE_TYPE[0][1],1));
+            }
+        }
+        for(Ressource ressource:this.inventaire){
+            if(ressource.type.equals(GameData.RESSOURCE_TYPE[1][0])){
+                this.drop(ressource);
+            }
+        }
     }
 
     public boolean inventairePlein() {
-        if (inventaire.size() < capacite)
-            return false;
-        else
-            return true;
+        return inventaire.size() < capacite;
     }
 
 
