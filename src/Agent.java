@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * @author Nicolas Ramy
  */
@@ -8,7 +10,7 @@ public class Agent {
     private int y;
     private int pm;
 
-    protected Ressource[] inventaire;
+    protected ArrayList<Ressource> inventaire;
 
     /**
      *

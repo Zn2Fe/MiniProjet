@@ -1,2 +1,3 @@
-public class Monstre {
+public class Monstre  {
+
 }
