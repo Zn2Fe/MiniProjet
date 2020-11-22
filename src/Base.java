@@ -29,7 +29,15 @@ public class Base extends Agent{
         }
         return soldat;
     }
-
+    public ArrayList<Ouvrier> getAllOuvrier(){
+        ArrayList<Ouvrier> ouvriers = new ArrayList<>();
+        for(Agent o:infanterie){
+            if(o instanceof Ouvrier){
+                ouvriers.add(new Ouvrier((Ouvrier) o));
+            }
+        }
+        return ouvriers;
+    }
     public void utilisationRessource(Ressource r){
         this.inventaire.remove(r);
     }

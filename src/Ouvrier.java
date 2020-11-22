@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 
 public class Ouvrier extends Agent {
-    private final int capacite = 3;
+    private final int capacite = 5;
     private String nom;
 
     public Ouvrier() {
-        super(5, -1, -1);
+        super(50, -1, -1);
         this.inventaire = new ArrayList<Ressource>();
         this.nom = Nom.genereNom();
+    }
+
+    public Ouvrier(Ouvrier o) {
+        super(o.finalPm,o.getX(), o.getY());
+        this.nom = o.nom;
+        this.inventaire = o.inventaire;
     }
 
     public void ramasse(Ressource e) {

@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Simulation {
     public Terrain terrain;
-    public ArrayList<Ressource> ressources;
     public Plateau plateau;
     public Base base;
     public int nbMonstre;
@@ -23,7 +22,6 @@ public class Simulation {
         //initalise les terrain, plateau, ressources,et base
         this.terrain=new Terrain(nbLignes,nbColonnes);
         this.plateau=new Plateau(nbLignes,nbColonnes);
-        this.ressources = new ArrayList<>();
         this.base = new Base(GameData.baseX,GameData.baseY);
         this.plateau.deplacer(GameData.baseX,GameData.baseY,this.base);
 
@@ -39,8 +37,36 @@ public class Simulation {
 
 
     public String tourJour(){
-
+        initJour();
+        ArrayList<Ouvrier> ouvriers = base.getAllOuvrier();
+        for(Ouvrier o:ouvriers){
+            while(/*est ce que l'ouvrier a de la place*/){
+              /*trouev la ressource la plus proche*/
+              /*verifie qu'il peut rentrer-> break */
+              /*va a la ressource la plus proche*/
+            }
+            /*rentre*/
+        }
     }
+
+    private void initJour(){
+        int nbRessource = (terrain.nbLignes* terrain.nbColonnes)/GameData.RESSOURCE_DENSITY;
+        for(int i=0;i< terrain.nbLignes;i++){
+            for(int j=0;i< terrain.nbColonnes;j++){
+                terrain.videCase(i,j);
+            }
+        }
+        for(int i=0;i<nbRessource;i++){
+            int x = GameData.rng(0, terrain.nbLignes);
+            int y = GameData.rng(0, terrain.nbColonnes);
+            while (!terrain.caseEstVide(x, y)) {
+                x = GameData.rng(0, plateau.nbLignes);
+                y = GameData.rng(0, plateau.nbColonnes);
+            }
+            terrain.setCase(x,y,GameData.newRandomRessource());
+        }
+    }
+
     public String tourCraft(){}
     public String tourNuit(){
         initNuit();
