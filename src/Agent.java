@@ -1,5 +1,5 @@
 /**
- *
+ * @author Nicolas Ramy
  */
 public class Agent {
     private final int finalPm;
@@ -10,12 +10,21 @@ public class Agent {
 
     protected Ressource[] inventaire;
 
+    /**
+     *
+     * @param fpm Nombre de point de d&eacute;placement par tour de l'agent
+     */
     public Agent(int fpm) {
         this.finalPm = fpm;
         this.pm = fpm;
     }
 
-    public void seDéplacer(int x,int y){
+    /**
+     *
+     * @param x abscice de la case d'arriv&eacute;e
+     * @param y ordonn&eacute;es de la case d'arriv&eacute;e
+     */
+    public void seDeplacer(int x,int y){
         if(this.pm < Math.abs(this.x-x)+Math.abs(this.y-y)){
             this.pm -= (Math.abs(this.x-x)+Math.abs(this.y-y));
             this.x = x;
