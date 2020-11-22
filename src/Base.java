@@ -36,6 +36,10 @@ public class Base extends Agent{
         this.currentHp--;
     }
 
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
     /*public void destruction(){
         if (this.currentHp == 0)
 

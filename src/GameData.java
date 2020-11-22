@@ -2,7 +2,7 @@ public class GameData{
     public static final int MONSTER_DENSITY = 4;
     public static final int RESSOURCE_DENSITY = 4;
     public static final int AGENT_DENSITY = 8;
-
+    public static final int SOLDIER_REPARTITION = 15;
     public static final String[][] RESSOURCE_TYPE ={{"Potion","épée"},{"métal"}};
 
     public static Ressource newRandomRessource(){
@@ -14,6 +14,10 @@ public class GameData{
 
     public static Monstre newRandomMonster(int x,int y){
         return new Monstre(x,y);
+    }
+
+    public static Agent newRandomAgent(){
+        return Math.random()*SOLDIER_REPARTITION < 5 ? new Soldat() : new Ouvrier();
     }
 
     public static int rng(int a, int b){

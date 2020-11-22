@@ -50,6 +50,17 @@ public class Plateau {
         }
     }
 
+    public boolean aliveMonster(){
+        for(Agent[] l:this.plateau){
+            for (Agent c:l){
+                if(c instanceof Monstre){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean sontValides(int x,int y){
         return (x>=0 && x<=nbLignes && y>=0 && y<=nbColonnes);
     }

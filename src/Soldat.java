@@ -5,9 +5,9 @@ public class Soldat extends Agent {
     private String nom;
 
     public Soldat() {
-        super(3);
+        super(3,-1,-1);
         this.inventaire = new ArrayList<Ressource>();
-        this.nom = this.genereNom();
+        this.nom = Nom.genereNom();
     }
 
 
