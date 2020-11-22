@@ -5,7 +5,6 @@ public class Base extends Agent{
     private final int finalHp= 3;
     private int currentHp;
 
-
     public Base(int x, int y) {
         super(0, x ,y);
         this.inventaire = new ArrayList<Ressource>();

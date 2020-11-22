@@ -3,6 +3,10 @@ public class GameData{
     public static final int RESSOURCE_DENSITY = 4;
     public static final int AGENT_DENSITY = 8;
     public static final int SOLDIER_REPARTITION = 15;
+
+    public static final int baseX = 4;
+    public static final int baseY = 4;
+
     public static final String[][] RESSOURCE_TYPE ={{"Potion","épée"},{"métal"}};
 
     public static Ressource newRandomRessource(){
@@ -12,8 +16,8 @@ public class GameData{
         return new Ressource(ressourceNom,ressourceQuantité);
     }
 
-    public static Monstre newRandomMonster(int x,int y){
-        return new Monstre(x,y);
+    public static Monstre newRandomMonster(){
+        return new Monstre(GameData.baseX,GameData.baseY);
     }
 
     public static Agent newRandomAgent(){
