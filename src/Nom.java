@@ -23,7 +23,7 @@ public class Nom {
 
         public static String genereNom(){
             StringBuilder ch = new StringBuilder();
-            for(int i=0;i<rendAlea(3,6);i++){
+            for(int i=0;i<rendAlea(3,5);i++){
                 if(estPair(i))
                     ch.append(rendConsonne());
                 else

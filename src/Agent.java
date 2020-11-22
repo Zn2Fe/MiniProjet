@@ -8,17 +8,18 @@ public class Agent {
 
     private int x;
     private int y;
-
+    protected String nom;
     protected ArrayList<Ressource> inventaire;
 
     /**
      *
      * @param fpm Nombre de point de d&eacute;placement par tour de l'agent
      */
-    public Agent(int fpm,int x,int y) {
+    public Agent(int fpm,int x,int y,String nom) {
         this.finalPm = fpm;
         this.x=x;
         this.y=y;
+        this.nom=nom;
     }
 
     public int getX() {

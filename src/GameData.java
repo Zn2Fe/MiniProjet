@@ -1,5 +1,5 @@
 public class GameData{
-    public static final int MONSTER_DENSITY = 4;
+    public static final int MONSTER_DENSITY = 10;
     public static final int RESSOURCE_DENSITY = 4;
     public static final int AGENT_DENSITY = 8;
     public static final int SOLDIER_REPARTITION = 15;
@@ -12,12 +12,12 @@ public class GameData{
     public static Ressource newRandomRessource(){
         int randomType = rng(0,2);
         String ressourceNom = RESSOURCE_TYPE[randomType][randomType==0 ? rng(0,2):0];
-        int ressourceQuantite = (randomType==0 ? 1 : rng(0,3));
+        int ressourceQuantite = (randomType==0 ? 1 : rng(1,3));
         return new Ressource(ressourceNom,ressourceQuantite);
     }
 
     public static Monstre newRandomMonster(){
-        return new Monstre(GameData.baseX,GameData.baseY);
+        return new Monstre();
     }
 
     public static Agent newRandomAgent(){

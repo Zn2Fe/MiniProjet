@@ -26,18 +26,20 @@ public class Plateau {
         this.plateau = new Agent[this.nbLignes][this.nbColonnes];
     }
 
-    public void placeSoldat(ArrayList<Soldat> soldats){
+    public ArrayList<Soldat> placeSoldat(ArrayList<Soldat> soldats){
         for(int i = GameData.baseX-1;i<GameData.baseX+1;i++){
             for(int j = GameData.baseY-1;j<GameData.baseY+1;j++){
                 if(this.caseEstVide(i,j)){
                     for(Soldat soldat:soldats){
                         if(soldat.getX()==-1){
                             this.deplacer(i,j,soldat);
+                            break;
                         }
                     }
                 }
             }
         }
+        return soldats;
     }
 
     public void soldatMoveToNearestMonster(Soldat soldat){
@@ -97,10 +99,10 @@ public class Plateau {
                 for(Soldat soldat:soldatsNear(monstre.getX(),monstre.getY())){
                     soldatCombatPower+=soldat.getCombatPower();
                 }
-                if(soldatCombatPower+GameData.rng(-1,2)<3){
+                if(soldatCombatPower<GameData.rng(0,11)){
                     this.videCase(
-                            soldatsNear(monstre.getX(),monstre.getY()).get(1).getX(),
-                            soldatsNear(monstre.getX(),monstre.getY()).get(1).getY());
+                            soldatsNear(monstre.getX(),monstre.getY()).get(0).getX(),
+                            soldatsNear(monstre.getX(),monstre.getY()).get(0).getY());
                 }
                 else{
                     this.videCase(monstre.getX(),monstre.getY());
@@ -118,7 +120,8 @@ public class Plateau {
 
     public void monsterAttackBase(Base base){
         for(Monstre monstre:getAllMonster()){
-            if(monstre.distance(GameData.baseX,GameData.baseY)==1){
+            int dBase = (int) monstre.distance(GameData.baseX,GameData.baseY)+1;
+            if(dBase==1){
                 base.prendreUnCoup();
             }
         }
@@ -128,9 +131,12 @@ public class Plateau {
         if(!this.sontValides(x,y)){
             return;
         }
+
         if(this.getCase(x,y)==null){
+            if(!(agent.getY()==y&&agent.getY()==x)){
+                this.videCase(agent.getX(),agent.getY());
+            }
             this.plateau[x][y]= agent;
-            this.videCase(agent.getX(),agent.getY());
             agent.seDeplacer(x,y);
 
         }
@@ -175,7 +181,7 @@ public class Plateau {
         int y=monstre.getY();
         if(x !=GameData.baseX){
             int x2 = GameData.baseX - x < 0 ? (x - 2) : (x + 2);
-            if(this.sontValides(x2,y) && this.caseEstVide(x2,y)){
+            if(this.sontValides(x2,y) && this.caseEstVide(x2,y) && Math.abs(GameData.baseX - x)!=1){
                 this.deplacer(x2,y,monstre);
                 return;
             }
@@ -187,7 +193,7 @@ public class Plateau {
         }
         if(y!=GameData.baseY){
             int y2 = GameData.baseY - y < 0 ? (y - 2) : (y + 2);
-            if(this.sontValides(x, y2) && this.caseEstVide(x, y2)){
+            if(this.sontValides(x, y2) && this.caseEstVide(x, y2) && Math.abs(GameData.baseY - y)!=1){
                 this.deplacer(x, y2,monstre);
                 return;
             }
@@ -197,7 +203,36 @@ public class Plateau {
             }
         }
     }
+    public void affiche() {
+        String var1 = "";
+        String var2 = ":";
+        String var3 = "";
 
+        int var4;
+        for(var4 = 0; var4 < 5; ++var4) {
+            var3 = var3 + "-";
+        }
+
+        for(var4 = 0; var4 < this.nbColonnes; ++var4) {
+            var2 = var2 + var3 + ":";
+        }
+
+        var2 = var2 + "\n";
+        var1 = var2;
+
+        for(var4 = 0; var4 < this.nbLignes; ++var4) {
+            for(int var5 = 0; var5 < this.nbColonnes; ++var5) {
+                if (this.plateau[var4][var5] == null) {
+                    var1 = var1 + "|" + String.format("%-5s", " ");
+                } else {
+                    var1 = var1 + "|" + (String.format("%-5s",this.plateau[var4][var5].nom).substring(0,5));
+                }
+            }
+
+            var1 = var1 + "|\n" + var2;
+        }
+        System.out.println(var1);
+    }
     private boolean sontValides(int x,int y){
         return (x>=0 && x<=nbLignes && y>=0 && y<=nbColonnes);
     }

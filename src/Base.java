@@ -5,7 +5,7 @@ public class Base extends Agent{
     private int currentHp;
 
     public Base(int x, int y) {
-        super(0, x ,y);
+        super(0, x ,y," Base");
         this.inventaire = new ArrayList<>();
         this.infanterie = new ArrayList<>();
         this.currentHp = 3;
@@ -21,6 +21,11 @@ public class Base extends Agent{
         for(Agent a:this.infanterie){
             if(a instanceof Ouvrier){
                 ((Ouvrier) a).craftAllSword();
+                for(Ressource ressource:a.inventaire){
+                    if(ressource.type.equals(GameData.RESSOURCE_TYPE[0][1])){
+                        this.inventaire.add(ressource);
+                    }
+                }
             }
         }
 
