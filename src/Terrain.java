@@ -11,7 +11,7 @@ public final class Terrain {
     }
 
     public Terrain(int var1, int var2) {
-        if (var1 > 20) {
+        if (var1 > NBLIGNESMAX) {
             this.nbLignes = 20;
         } else if (var1 <= 0) {
             this.nbLignes = 1;
@@ -19,7 +19,7 @@ public final class Terrain {
             this.nbLignes = var1;
         }
 
-        if (var2 > 20) {
+        if (var2 > NBCOLONNESMAX) {
             this.nbColonnes = 20;
         } else if (var2 <= 0) {
             this.nbColonnes = 1;
