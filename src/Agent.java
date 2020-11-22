@@ -16,9 +16,19 @@ public class Agent {
      *
      * @param fpm Nombre de point de d&eacute;placement par tour de l'agent
      */
-    public Agent(int fpm) {
+    public Agent(int fpm,int x,int y) {
         this.finalPm = fpm;
         this.pm = fpm;
+        this.x=x;
+        this.x=y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     /**
