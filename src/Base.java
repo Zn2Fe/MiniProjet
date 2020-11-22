@@ -6,8 +6,8 @@ public class Base extends Agent{
     private int currentHp;
 
 
-    public Base() {
-        super(0);
+    public Base(int x, int y) {
+        super(0, x ,y);
         this.inventaire = new ArrayList<Ressource>();
         this.infanterie = new ArrayList<Agent>();
         this.currentHp = finalHp;
