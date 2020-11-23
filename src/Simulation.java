@@ -34,8 +34,6 @@ public class Simulation {
             base.stockageAgent(GameData.newRandomAgent());
         }
     }
-
-
     public String tourJour(){
         initJour();
         this.terrain.affiche();
@@ -84,7 +82,6 @@ public class Simulation {
         }
         return nearestRessource;
     }
-
     private void initJour(){
         base.videInventaire();
         int nbRessource = (terrain.nbLignes* terrain.nbColonnes)/GameData.RESSOURCE_DENSITY;
@@ -103,8 +100,6 @@ public class Simulation {
             terrain.setCase(x,y,GameData.newRandomRessource());
         }
     }
-
-
     public String tourNuit(){
         initNuit();
         ArrayList<Soldat> soldats = base.getAllSoldat();
@@ -129,9 +124,8 @@ public class Simulation {
         }
         return "Victoire";
     }
-
-
     private void initNuit(){
+        plateau.videPlateau();
         this.nbMonstre+=1;
         //Génére et place les monstres sur le plateau
         for (int i=0;i<nbMonstre;i++){

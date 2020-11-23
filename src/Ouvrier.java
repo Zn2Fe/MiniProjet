@@ -27,11 +27,6 @@ public class Ouvrier extends Agent {
             inventaire.add(e);
     }
 
-    public void drop(Ressource e) {
-        if (!inventaire.isEmpty())
-            inventaire.remove(e);
-    }
-
     public void reinitPm(){
         this.pm=finalPm;
     }

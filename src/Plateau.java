@@ -27,8 +27,8 @@ public class Plateau {
     }
 
     public ArrayList<Soldat> placeSoldat(ArrayList<Soldat> soldats){
-        for(int i = GameData.baseX-1;i<GameData.baseX+1;i++){
-            for(int j = GameData.baseY-1;j<GameData.baseY+1;j++){
+        for(int i = GameData.baseX-1;i<GameData.baseX+2;i++){
+            for(int j = GameData.baseY-1;j<GameData.baseY+2;j++){
                 if(this.caseEstVide(i,j)){
                     for(Soldat soldat:soldats){
                         if(soldat.getX()==-1){
@@ -42,23 +42,9 @@ public class Plateau {
         return soldats;
     }
 
-    public void soldatMoveToNearestMonster(Soldat soldat){
-        int x = soldat.getX();
-        int y = soldat.getY();
-        for(int i=soldat.getX()-2;i<soldat.getX()+2;i++){
-            for(int j=soldat.getY()-2;j<soldat.getY()+2;j++){
-                if(isMonsterNear(i,j)&&this.caseEstVide(i,j)){
-                    x=i;
-                    y=j;
-                }
-            }
-        }
-        this.deplacer(x,y,soldat);
-    }
-
     private boolean isMonsterNear(int x, int y){
-        for(int i=x-1;i<x+1;i++){
-            for (int j=y-1;j<y+1;j++){
+        for(int i=x-1;i<x+2;i++){
+            for (int j=y-1;j<y+2;j++){
                 if(this.sontValides(i,j)&&this.getCase(i,j) instanceof Monstre){
                     return true;
                 }
@@ -69,8 +55,8 @@ public class Plateau {
 
     private ArrayList<Soldat> soldatsNear(int x, int y){
         ArrayList<Soldat> soldats = new ArrayList<>();
-        for(int i=x-1;i<x+1;i++){
-            for (int j=y-1;j<y+1;j++){
+        for(int i=x-1;i<x+2;i++){
+            for (int j=y-1;j<y+2;j++){
                 if(this.sontValides(i,j)&&this.getCase(i,j) instanceof Soldat){
                     soldats.add((Soldat) this.getCase(i,j));
                 }
@@ -91,21 +77,39 @@ public class Plateau {
         return monstres;
     }
 
+    public void soldatMoveToNearestMonster(Soldat soldat){
+        int x = soldat.getX();
+        int y = soldat.getY();
+        if(isMonsterNear(x,y)){
+            return;
+        }
+        for(int i=soldat.getX()-2;i<soldat.getX()+2;i++){
+            for(int j=soldat.getY()-2;j<soldat.getY()+2;j++){
+                if(sontValides(i,j)&&isMonsterNear(i,j)&&this.caseEstVide(i,j)){
+                    x=i;
+                    y=j;
+                }
+            }
+        }
+        this.deplacer(x,y,soldat);
+    }
+
     public void soldatAttackMonster(){
         ArrayList<Monstre> monstres = getAllMonster();
         for(Monstre monstre:monstres){
-            if(soldatsNear(monstre.getX(),monstre.getY()).size()!=0) {
+            ArrayList<Soldat> soldats = soldatsNear(monstre.getX(),monstre.getY());
+            if(soldats.size()!=0) {
                 int soldatCombatPower = 0;
-                for(Soldat soldat:soldatsNear(monstre.getX(),monstre.getY())){
+                for(Soldat soldat:soldats){
                     soldatCombatPower+=soldat.getCombatPower();
                 }
                 if(soldatCombatPower<GameData.rng(0,11)){
-                    this.videCase(
-                            soldatsNear(monstre.getX(),monstre.getY()).get(0).getX(),
-                            soldatsNear(monstre.getX(),monstre.getY()).get(0).getY());
+                    this.videCase(soldats.get(0).getX(), soldats.get(0).getY());
+                    System.out.println(soldats.get(0).nom + " est mort face a un monstre");
                 }
                 else{
                     this.videCase(monstre.getX(),monstre.getY());
+                    System.out.println(soldats.get(0).nom + " a gagné face a un monstre");
                 }
             }
 
@@ -120,8 +124,7 @@ public class Plateau {
 
     public void monsterAttackBase(Base base){
         for(Monstre monstre:getAllMonster()){
-            int dBase = (int) monstre.distance(GameData.baseX,GameData.baseY)+1;
-            if(dBase==1){
+            if(isMonsterNear(base.getX(), base.getY())){
                 base.prendreUnCoup();
             }
         }
@@ -131,17 +134,24 @@ public class Plateau {
         if(!this.sontValides(x,y)){
             return;
         }
-
         if(this.getCase(x,y)==null){
             if(!(agent.getY()==y&&agent.getY()==x)){
                 this.videCase(agent.getX(),agent.getY());
             }
             this.plateau[x][y]= agent;
             agent.seDeplacer(x,y);
-
         }
     }
 
+    public void videPlateau(){
+        for(int i=0;i<nbLignes;i++){
+            for(int j=0;j<nbColonnes;j++){
+                if(!(plateau[i][j] instanceof Base)) {
+                    videCase(i, j);
+                }
+            }
+        }
+    }
     public void videCase(int x,int y){
         if(this.sontValides(x,y)){
             this.plateau[x][y]=null;
@@ -203,6 +213,7 @@ public class Plateau {
             }
         }
     }
+
     public void affiche() {
         String var1 = "";
         String var2 = ":";
@@ -234,6 +245,6 @@ public class Plateau {
         System.out.println(var1);
     }
     private boolean sontValides(int x,int y){
-        return (x>=0 && x<=nbLignes && y>=0 && y<=nbColonnes);
+        return (x>=0 && x<nbLignes && y>=0 && y<nbColonnes);
     }
 }
