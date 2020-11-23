@@ -1,5 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
+/**
+ * Un pplateau sur lequel est la base, et se déplace monstre et soldat
+ * @author Nicolas Devaux
+ * @author Ramy Bouderbal
+ */
 public class Plateau {
     public static final int NBLIGNESMAX = 20;
     public static final int NBCOLONNESMAX = 20;
@@ -8,6 +14,11 @@ public class Plateau {
     public final int nbColonnes;
     private final Agent[][] plateau;
 
+    /**
+     * Constructeur prenant la taille du tableau en entrée.
+     * @param nbLignes nombre de ligne du tableau
+     * @param nbColonnes nomre de lignes du tableau
+     */
     public Plateau(int nbLignes, int nbColonnes) {
         if(nbLignes > NBLIGNESMAX) {
             this.nbLignes = 20;
@@ -26,11 +37,16 @@ public class Plateau {
         this.plateau = new Agent[this.nbLignes][this.nbColonnes];
     }
 
-    public ArrayList<Soldat> placeSoldat(ArrayList<Soldat> soldats){
+    /**
+     * Essaye de sortir les soldats de la base
+     * @param soldatArrayList liste des soldats en vie
+     * @return la liste des soldats en vie déplacé si possible
+     */
+    public ArrayList<Soldat> placeSoldat(ArrayList<Soldat> soldatArrayList){
         for(int i = GameData.baseX-1;i<GameData.baseX+2;i++){
             for(int j = GameData.baseY-1;j<GameData.baseY+2;j++){
                 if(this.caseEstVide(i,j)){
-                    for(Soldat soldat:soldats){
+                    for(Soldat soldat:soldatArrayList){
                         if(soldat.getX()==-1){
                             this.deplacer(i,j,soldat);
                             break;
@@ -39,9 +55,18 @@ public class Plateau {
                 }
             }
         }
-        return soldats;
+        return soldatArrayList;
     }
 
+    /**
+     * Retourne true si un monstre est dans les 9 blocs compris autour de la case (x,y)
+     * x x x
+     * x o x
+     * x x x
+     * @param x abscisse
+     * @param y ordonnées
+     * @return Boolean
+     */
     private boolean isMonsterNear(int x, int y){
         for(int i=x-1;i<x+2;i++){
             for (int j=y-1;j<y+2;j++){
@@ -53,6 +78,12 @@ public class Plateau {
         return false;
     }
 
+    /**
+     * Retourne la liste des soldats dans les 9 blocs compris autour de la case (x,y)
+     * @param x abscisse
+     * @param y ordonnées
+     * @return liste de soldats
+     */
     private ArrayList<Soldat> soldatsNear(int x, int y){
         ArrayList<Soldat> soldats = new ArrayList<>();
         for(int i=x-1;i<x+2;i++){
@@ -65,6 +96,10 @@ public class Plateau {
         return soldats;
     }
 
+    /**
+     * Liste de l'ensemble des monstres
+     * @return liste de monstre
+     */
     private ArrayList<Monstre> getAllMonster(){
         ArrayList<Monstre> monstres = new ArrayList<>();
         for(Agent[] agents:plateau){
@@ -77,6 +112,10 @@ public class Plateau {
         return monstres;
     }
 
+    /**
+     * Gere les déplacements des soldats pourqu'il se dirige vers le monstre le plus proche
+     * @param soldat Un soldat qui va se déplacer
+     */
     public void soldatMoveToNearestMonster(Soldat soldat){
         int x = soldat.getX();
         int y = soldat.getY();
@@ -94,6 +133,10 @@ public class Plateau {
         this.deplacer(x,y,soldat);
     }
 
+    /**
+     * Parcours les monstres et vérifie si il s'engage dans un combat, fait le combat le cas échéant
+     * Parcours les monstres et vérifie si il s'engage dans un combat, fait le combat le cas échéant
+     */
     public void soldatAttackMonster(){
         ArrayList<Monstre> monstres = getAllMonster();
         for(Monstre monstre:monstres){
@@ -116,77 +159,19 @@ public class Plateau {
         }
     }
 
+    /**
+     * lance le déplacements automatique des monstres
+     */
     public void monsterMovement(){
         for(Monstre monstre:getAllMonster()){
             this.autoMonsterMovement(monstre);
         }
     }
 
-    public void monsterAttackBase(Base base){
-        for(Monstre monstre:getAllMonster()){
-            if(isMonsterNear(base.getX(), base.getY())){
-                System.out.println("Votre base à pris un coup");
-                base.prendreUnCoup();
-            }
-        }
-    }
-
-    public void deplacer(int x, int y, Agent agent){
-        if(!this.sontValides(x,y)){
-            return;
-        }
-        if(this.getCase(x,y)==null){
-            if(!(agent.getY()==y&&agent.getY()==x)){
-                this.videCase(agent.getX(),agent.getY());
-            }
-            this.plateau[x][y]= agent;
-            agent.seDeplacer(x,y);
-        }
-    }
-
-    public void videPlateau(){
-        for(int i=0;i<nbLignes;i++){
-            for(int j=0;j<nbColonnes;j++){
-                if(!(plateau[i][j] instanceof Base)) {
-                    videCase(i, j);
-                }
-            }
-        }
-    }
-    public void videCase(int x,int y){
-        if(this.sontValides(x,y)){
-            this.plateau[x][y]=null;
-        }
-    }
-
-    public Agent getCase(int x,int y){
-        if(this.sontValides(x,y)){
-            return this.plateau[x][y];
-        }
-        else{
-            return null;
-        }
-    }
-
-    public boolean caseEstVide(int var1, int var2) {
-        if (this.sontValides(var1, var2)) {
-            return this.plateau[var1][var2] == null;
-        } else {
-            return true;
-        }
-    }
-
-    public boolean aliveMonster(){
-        for(Agent[] l:this.plateau){
-            for (Agent c:l){
-                if(c instanceof Monstre){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
+    /**
+     * Gere le déplacement automatique du monster en paramêtre
+     * @param monstre monstre se déplacant
+     */
     private void autoMonsterMovement(Monstre monstre){
         int x=monstre.getX();
         int y=monstre.getY();
@@ -215,37 +200,147 @@ public class Plateau {
         }
     }
 
+    /**
+     * Fait perdre des points de vie à la base si un monstre s'approche trop
+     * @param base base
+     */
+    public void monsterAttackBase(Base base){
+        for(Monstre monstre:getAllMonster()){
+            if(isMonsterNear(base.getX(), base.getY())){
+                base.prendreUnCoup();
+            }
+        }
+    }
+
+    /**
+     * Déplace un agent sur le coordonnées indiqués
+     * @param x abscisse
+     * @param y ordonnées
+     * @param agent agent à déplacer
+     */
+    public void deplacer(int x, int y, Agent agent){
+        if(!this.sontValides(x,y)){
+            return;
+        }
+        if(this.getCase(x,y)==null){
+            if(!(agent.getY()==y&&agent.getY()==x)){
+                this.videCase(agent.getX(),agent.getY());
+            }
+            this.plateau[x][y]= agent;
+            agent.seDeplacer(x,y);
+        }
+    }
+
+    /**
+     * Vide le plateau de tous les agents sauf la base
+     */
+    public void videPlateau(){
+        for(int i=0;i<nbLignes;i++){
+            for(int j=0;j<nbColonnes;j++){
+                if(!(plateau[i][j] instanceof Base)) {
+                    videCase(i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Vide la case de coordonnées (x,y)
+     * @param x abcisse
+     * @param y ordonnées
+     */
+    public void videCase(int x,int y){
+        if(this.sontValides(x,y)){
+            this.plateau[x][y]=null;
+        }
+    }
+
+    /**
+     * retourne ce que contient la case (x,y)
+     * @param x abcisse
+     * @param y ordonnées
+     * @return L'agentt aux cordonées ou null
+     */
+    public Agent getCase(int x,int y){
+        if(this.sontValides(x,y)){
+            return this.plateau[x][y];
+        }
+        else{
+            return null;
+        }
+    }
+
+    /**
+     * renvoie true si la case est vide
+     * @param x abcisse
+     * @param y ordonnées
+     * @return true si la case est vide
+     */
+    public boolean caseEstVide(int x, int y) {
+        if (this.sontValides(x, y)) {
+            return this.plateau[x][y] == null;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * La précense de monstre sur le terrain
+     * @return true si un monstre est présent sur le terrain
+     */
+    public boolean aliveMonster(){
+        for(Agent[] l:this.plateau){
+            for (Agent c:l){
+                if(c instanceof Monstre){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Affiche le plateau dans la console
+     */
     public void affiche() {
         String var1 = "";
-        String var2 = ":";
-        String var3 = "";
+        String horizontalLine = ":";
+        String horizontalSeparator = "-----";
 
-        int var4;
-        for(var4 = 0; var4 < 5; ++var4) {
-            var3 = var3 + "-";
+        for(int i = 0; i < this.nbColonnes; ++i) {
+            horizontalLine = horizontalLine + horizontalSeparator + ":";
         }
 
-        for(var4 = 0; var4 < this.nbColonnes; ++var4) {
-            var2 = var2 + var3 + ":";
-        }
+        horizontalLine = horizontalLine + "\n";
+        var1 = horizontalLine;
 
-        var2 = var2 + "\n";
-        var1 = var2;
-
-        for(var4 = 0; var4 < this.nbLignes; ++var4) {
+        for(int i = 0; i < this.nbLignes; ++i) {
             for(int var5 = 0; var5 < this.nbColonnes; ++var5) {
-                if (this.plateau[var4][var5] == null) {
+                if (this.plateau[i][var5] == null) {
                     var1 = var1 + "|" + String.format("%-5s", " ");
                 } else {
-                    var1 = var1 + "|" + (String.format("%-5s",this.plateau[var4][var5].nom).substring(0,5));
+                    var1 = var1 + "|" + (String.format("%-5s",this.plateau[i][var5].nom).substring(0,5));
                 }
             }
 
-            var1 = var1 + "|\n" + var2;
+            var1 = var1 + "|\n" + horizontalLine;
         }
         System.out.println(var1);
     }
     private boolean sontValides(int x,int y){
         return (x>=0 && x<nbLignes && y>=0 && y<nbColonnes);
+    }
+
+    /**
+     * Tostring pour l'ide
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return "Plateau{" +
+                "nbLignes=" + nbLignes +
+                ", nbColonnes=" + nbColonnes +
+                "plateau contient"+this.getAllMonster()+"Monstres"+
+                '}';
     }
 }

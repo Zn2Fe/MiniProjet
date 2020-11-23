@@ -1,5 +1,9 @@
 import java.util.ArrayList;
-
+/**
+ * Une simulation classe principale
+ * @author Nicolas Devaux
+ * @author Ramy Bouderbal
+ */
 public class Simulation {
     public final Terrain terrain;
     public final Plateau plateau;
@@ -38,6 +42,10 @@ public class Simulation {
             base.stockageAgent(GameData.newRandomAgent());
         }
     }
+
+    /**
+     * Simule un Tour de rammassage de ressource
+     */
     public void tourJour(){
         initJour();
         System.out.println("Le terrain se remplit de ressources ...");
@@ -70,6 +78,12 @@ public class Simulation {
         this.terrain.affiche();
         System.out.println("La nuit Tombe ... \n\n");
     }
+
+    /**
+     * renvoie la ressource la plus proche
+     * @param o Ouvrier
+     * @return ressource la plus proche de lui
+     */
     private Ressource getNearestRessource(Ouvrier o){
         ArrayList<Ressource> ressources = new ArrayList<>();
         for(int i=0;i< terrain.nbLignes;i++){
@@ -91,6 +105,10 @@ public class Simulation {
         }
         return nearestRessource;
     }
+
+    /**
+     * Initialise les ressources sur le terrain
+     */
     private void initJour(){
         base.videInventaire();
         int nbRessource = (terrain.nbLignes* terrain.nbColonnes)/GameData.RESSOURCE_DENSITY;
@@ -109,6 +127,11 @@ public class Simulation {
             terrain.setCase(x,y,GameData.newRandomRessource());
         }
     }
+
+    /**
+     * Simule un tour de combat
+     * @return true en cas de défaite, false sinon
+     */
     public boolean tourNuit(){
         initNuit();
         plateau.affiche();
@@ -139,6 +162,10 @@ public class Simulation {
         System.out.println("\nIl reste "+this.base.getCurrentHp()+" vie à la base");
         return false;
     }
+
+    /**
+     * initalise le plateau avec des monstres (suffisament éloignés de la base)
+     */
     private void initNuit(){
         plateau.videPlateau();
         this.nbMonstre+=1;
