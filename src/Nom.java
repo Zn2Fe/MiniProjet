@@ -1,5 +1,5 @@
 /**
- * Une classe statique générant aléatoirement de nom
+ * Une classe statique g&eacute;n&eacute;rant al&eacute;atoirement de nom
  * @author Nicolas Devaux
  * @author Ramy Bouderbal
  */
@@ -10,10 +10,10 @@ public class Nom {
     private Nom(){ }
 
     /**
-     * Genere un nomre aléatoire entre inf et sup
-     * @param inf borne inférieur
-     * @param sup borne supérieur
-     * @return Un nombre aléatoire
+     * Genere un nomre al&eacute;atoire entre inf et sup
+     * @param inf borne inf&eacute;rieur
+     * @param sup borne sup&eacute;rieur
+     * @return Un nombre al&eacute;atoire
      */
     public static int rendAlea(int inf, int sup){
         return (int) (Math.random()*(sup-inf+1)+inf);

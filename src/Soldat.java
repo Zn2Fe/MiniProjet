@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Soldat extends Agent {
 
     /**
-     * Constructeur par défaut: génére un noueau soldat
+     * Constructeur par d&eacute;faut: g&eacute;n&eacute;re un noueau soldat
      */
     public Soldat() {
         super(3, -1, -1,Nom.genereNom());
@@ -17,7 +17,7 @@ public class Soldat extends Agent {
 
     /**
      * constructeur par copie pour les soldats sortie de la base
-     * @param s Soldat à copier
+     * @param s Soldat &agrave; copier
      */
     public Soldat(Soldat s){
         super(s.finalMovementPoint,s.getX(),s.getY(), s.nom);

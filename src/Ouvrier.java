@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 /**
- * Un type d'agent spécialisé dans le fait de déplacer et ramasser les ressources
+ * Un type d'agent sp&eacute;cialis&eacute; dans le fait de d&eacute;placer et ramasser les ressources
  * @author Nicolas Devaux
  * @author Ramy Bouderbal
  */
@@ -11,9 +11,9 @@ public class Ouvrier extends Agent {
     private int pm;
 
     /**
-     * Constructeur générique
-     * genere un Nom aléatoire
-     * mets les points de mouvement à 50
+     * Constructeur g&eacute;n&eacute;rique
+     * genere un Nom al&eacute;atoire
+     * mets les points de mouvement &agrave; 50
      */
     public Ouvrier() {
         super(50, -1, -1, Nom.genereNom());
@@ -22,7 +22,7 @@ public class Ouvrier extends Agent {
     }
 
     /**
-     * Se déplace en vérifiant le nombre de déplacement restant.
+     * Se d&eacute;place en v&eacute;rifiant le nombre de d&eacute;placement restant.
      * @param x abscice de la case d'arriv&eacute;e
      * @param y ordonn&eacute;es de la case d'arriv&eacute;e
      */
@@ -43,7 +43,7 @@ public class Ouvrier extends Agent {
     }
 
     /**
-     * Ajoute une ressource à l'inventaire du Ouvrier
+     * Ajoute une ressource &agrave; l'inventaire du Ouvrier
      * @param e Une ressource
      */
     public void addRessource(Ressource e) {
@@ -61,14 +61,14 @@ public class Ouvrier extends Agent {
     }
 
     /**
-     * reintialise les points mouvements à leurs valeurs intial
+     * reintialise les points mouvements &agrave; leurs valeurs intial
      */
     public void reinitPm(){
         this.pm= finalMovementPoint;
     }
 
     /**
-     * Transforme tous les métaux en épée
+     * Transforme tous les m&eacute;taux en &eacute;p&eacute;e
      */
     public void craftAllSword() {
         ArrayList<Ressource> ressourcesList = new ArrayList<>();
@@ -91,7 +91,7 @@ public class Ouvrier extends Agent {
     }
 
     /**
-     * Verifie l'état de l'inventaire
+     * Verifie l'&eacute;tat de l'inventaire
      * @return false si l'inventaire est plein
      */
     public boolean inventairePasPlein() {

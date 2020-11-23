@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * @author Nicolas Devaux
  * @author Ramy Bouderbal
- * Un agent qui ne peut pas se déplacer, contenant un inventaire de taille infini et avec un nombre de point de vie limité
+ * Un agent qui ne peut pas se d&eacute;placer, contenant un inventaire de taille infini et avec un nombre de point de vie limit&eacute;
  * Peut contenir d'autres agents
  */
 public class Base extends Agent{
@@ -11,9 +11,9 @@ public class Base extends Agent{
     private int currentHp;
 
     /**
-     * Constructeur, définit le nombre de point de vie a 3 et le nom à "Base"
+     * Constructeur, d&eacute;finit le nombre de point de vie a 3 et le nom &agrave; "Base"
      * @param x abscisse de la base
-     * @param y ordonnées de la base
+     * @param y ordonn&eacute;es de la base
      */
     public Base(int x, int y) {
         super(0, x ,y," Base");
@@ -24,8 +24,8 @@ public class Base extends Agent{
     }
 
     /**
-     * Stock un agent dans l'infanterie de la base (le déplace en -1,-1)
-     * @param a l'agent à stocker dans la base
+     * Stock un agent dans l'infanterie de la base (le d&eacute;place en -1,-1)
+     * @param a l'agent &agrave; stocker dans la base
      */
     public void stockageAgent(Agent a){
         a.seDeplacer(-1,-1);
@@ -33,7 +33,7 @@ public class Base extends Agent{
     }
 
     /**
-     * demande à tous les ouvriers de la base de transformer leur métal en épée
+     * demande &agrave; tous les ouvriers de la base de transformer leur m&eacute;tal en &eacute;p&eacute;e
      */
     public void craftAll(){
         for(Agent a:this.infanterie){
@@ -79,7 +79,7 @@ public class Base extends Agent{
     }
 
     /**
-     * Retire un hp à la base
+     * Retire un hp &agrave; la base
      */
     public void prendreUnCoup() {
         this.currentHp--;
@@ -95,7 +95,7 @@ public class Base extends Agent{
     }
 
     /**
-     * vide l'iinventaire de la base tous les matins
+     * vide l'inventaire de la base tous les matins
      */
     public void videInventaire(){
         inventaire.clear();

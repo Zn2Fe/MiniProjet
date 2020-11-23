@@ -164,7 +164,7 @@ public class Simulation {
     }
 
     /**
-     * initalise le plateau avec des monstres (suffisament éloignés de la base)
+     * initalise le plateau avec des monstres (suffisament &eacute;loign&eacute;s de la base)
      */
     private void initNuit(){
         plateau.videPlateau();

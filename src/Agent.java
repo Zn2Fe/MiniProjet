@@ -16,9 +16,9 @@ public class Agent {
 
     /**
      * Constructeur d'agent, tous les champs sont requis et suffisant
-     * @param fpm Distance maximal de déplacement de l'agent
+     * @param fpm Distance maximal de d&eacute;placement de l'agent
      * @param x abscisse de l'agent
-     * @param y ordonnées de l'agent
+     * @param y ordonn&eacute;es de l'agent
      * @param nom nom de l'agent
      */
     public Agent(int fpm,int x,int y,String nom) {
@@ -45,7 +45,7 @@ public class Agent {
     }
 
     /**
-     * Permet de déplacer l'agent aux coordonées indiqués
+     * Permet de d&eacute;placer l'agent aux coordon&eacute;es indiqu&eacute;s
      * @param x abscice de la case d'arriv&eacute;e
      * @param y ordonn&eacute;es de la case d'arriv&eacute;e
      */
@@ -54,9 +54,9 @@ public class Agent {
             this.y = y;
     }
     /**
-     * Retourne la distance euclidienne entre le point de coordonnées (x,y) et l'agent
+     * Retourne la distance euclidienne entre le point de coordonn&eacute;es (x,y) et l'agent
      * @param x abscisse
-     * @param y ordonnées
+     * @param y ordonn&eacute;es
      * @return une distance
      */
     public double distance(int x, int y){

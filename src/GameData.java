@@ -14,7 +14,7 @@ public class GameData{
     public static final String[][] RESSOURCE_TYPE ={{"Potion","épée"},{"métal"}};
 
     /**
-     * retourne une ressource générer aléatoirement
+     * retourne une ressource g&eacute;n&eacute;rer al&eacute;atoirement
      * @return Une ressource
      */
     public static Ressource newRandomRessource(){
@@ -33,7 +33,7 @@ public class GameData{
     }
 
     /**
-     * Genere un nouvel Agent aléatoirement soldat ou ouvrier
+     * Genere un nouvel Agent al&eacute;atoirement soldat ou ouvrier
      * @return Un agent (ouvrier ou soldat)
      */
     public static Agent newRandomAgent(){
@@ -41,9 +41,9 @@ public class GameData{
     }
 
     /**
-     * renvoie un nombre aléatoire entre [a;a+b[
-     * @param a Nomre aléatoire de départ
-     * @param b Taille de la génération aléatoire
+     * renvoie un nombre al&eacute;atoire entre [a;a+b[
+     * @param a Nomre al&eacute;atoire de d&eacute;part
+     * @param b Taille de la g&eacute;n&eacute;ration al&eacute;atoire
      * @return Math.random()*(b)+a
      */
     public static int rng(int a, int b){

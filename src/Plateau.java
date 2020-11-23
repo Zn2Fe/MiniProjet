@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Un pplateau sur lequel est la base, et se déplace monstre et soldat
+ * Un pplateau sur lequel est la base, et se d&eacute;place monstre et soldat
  * @author Nicolas Devaux
  * @author Ramy Bouderbal
  */
@@ -15,7 +15,7 @@ public class Plateau {
     private final Agent[][] plateau;
 
     /**
-     * Constructeur prenant la taille du tableau en entrée.
+     * Constructeur prenant la taille du tableau en entr&eacute;e.
      * @param nbLignes nombre de ligne du tableau
      * @param nbColonnes nomre de lignes du tableau
      */
@@ -40,7 +40,7 @@ public class Plateau {
     /**
      * Essaye de sortir les soldats de la base
      * @param soldatArrayList liste des soldats en vie
-     * @return la liste des soldats en vie déplacé si possible
+     * @return la liste des soldats en vie d&eacute;plac&eacute; si possible
      */
     public ArrayList<Soldat> placeSoldat(ArrayList<Soldat> soldatArrayList){
         for(int i = GameData.baseX-1;i<GameData.baseX+2;i++){
@@ -64,7 +64,7 @@ public class Plateau {
      * x o x
      * x x x
      * @param x abscisse
-     * @param y ordonnées
+     * @param y ordonn&eacute;es
      * @return Boolean
      */
     private boolean isMonsterNear(int x, int y){
@@ -81,7 +81,7 @@ public class Plateau {
     /**
      * Retourne la liste des soldats dans les 9 blocs compris autour de la case (x,y)
      * @param x abscisse
-     * @param y ordonnées
+     * @param y ordonn&eacute;es
      * @return liste de soldats
      */
     private ArrayList<Soldat> soldatsNear(int x, int y){
@@ -113,8 +113,8 @@ public class Plateau {
     }
 
     /**
-     * Gere les déplacements des soldats pourqu'il se dirige vers le monstre le plus proche
-     * @param soldat Un soldat qui va se déplacer
+     * Gere les d&eacute;placements des soldats pourqu'il se dirige vers le monstre le plus proche
+     * @param soldat Un soldat qui va se d&eacute;placer
      */
     public void soldatMoveToNearestMonster(Soldat soldat){
         int x = soldat.getX();
@@ -134,8 +134,8 @@ public class Plateau {
     }
 
     /**
-     * Parcours les monstres et vérifie si il s'engage dans un combat, fait le combat le cas échéant
-     * Parcours les monstres et vérifie si il s'engage dans un combat, fait le combat le cas échéant
+     * Parcours les monstres et v&eacute;rifie si il s'engage dans un combat, fait le combat le cas &eacute;ch&eacute;ant
+     * Parcours les monstres et v&eacute;rifie si il s'engage dans un combat, fait le combat le cas &eacute;ch&eacute;ant
      */
     public void soldatAttackMonster(){
         ArrayList<Monstre> monstres = getAllMonster();
@@ -160,7 +160,7 @@ public class Plateau {
     }
 
     /**
-     * lance le déplacements automatique des monstres
+     * lance le d&eacute;placements automatique des monstres
      */
     public void monsterMovement(){
         for(Monstre monstre:getAllMonster()){
@@ -169,8 +169,8 @@ public class Plateau {
     }
 
     /**
-     * Gere le déplacement automatique du monster en paramêtre
-     * @param monstre monstre se déplacant
+     * Gere le d&eacute;placement automatique du monster en param&ecirc;tre
+     * @param monstre monstre se d&eacute;placant
      */
     private void autoMonsterMovement(Monstre monstre){
         int x=monstre.getX();
@@ -201,7 +201,7 @@ public class Plateau {
     }
 
     /**
-     * Fait perdre des points de vie à la base si un monstre s'approche trop
+     * Fait perdre des points de vie &agrave; la base si un monstre s'approche trop
      * @param base base
      */
     public void monsterAttackBase(Base base){
@@ -213,10 +213,10 @@ public class Plateau {
     }
 
     /**
-     * Déplace un agent sur le coordonnées indiqués
+     * D&eacute;place un agent sur le coordonn&eacute;es indiqu&eacute;s
      * @param x abscisse
-     * @param y ordonnées
-     * @param agent agent à déplacer
+     * @param y ordonn&eacute;es
+     * @param agent agent &agrave; d&eacute;placer
      */
     public void deplacer(int x, int y, Agent agent){
         if(!this.sontValides(x,y)){
@@ -245,9 +245,9 @@ public class Plateau {
     }
 
     /**
-     * Vide la case de coordonnées (x,y)
+     * Vide la case de coordonn&eacute;es (x,y)
      * @param x abcisse
-     * @param y ordonnées
+     * @param y ordonn&eacute;es
      */
     public void videCase(int x,int y){
         if(this.sontValides(x,y)){
@@ -258,8 +258,8 @@ public class Plateau {
     /**
      * retourne ce que contient la case (x,y)
      * @param x abcisse
-     * @param y ordonnées
-     * @return L'agentt aux cordonées ou null
+     * @param y ordonn&eacute;es
+     * @return L'agentt aux cordon&eacute;es ou null
      */
     public Agent getCase(int x,int y){
         if(this.sontValides(x,y)){
@@ -273,7 +273,7 @@ public class Plateau {
     /**
      * renvoie true si la case est vide
      * @param x abcisse
-     * @param y ordonnées
+     * @param y ordonn&eacute;es
      * @return true si la case est vide
      */
     public boolean caseEstVide(int x, int y) {
@@ -285,8 +285,8 @@ public class Plateau {
     }
 
     /**
-     * La précense de monstre sur le terrain
-     * @return true si un monstre est présent sur le terrain
+     * La pr&eacute;cense de monstre sur le terrain
+     * @return true si un monstre est pr&eacute;sent sur le terrain
      */
     public boolean aliveMonster(){
         for(Agent[] l:this.plateau){
