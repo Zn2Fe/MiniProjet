@@ -5,7 +5,11 @@ public class Simulation {
     public final Plateau plateau;
     public final Base base;
     public int nbMonstre;
+    public int round;
 
+    public Simulation(){
+        this(20,20);
+    }
     /**
      * Genere Une simulation contenant un terrain sur laquelle sont g&eacute;n&eacute;r&eacute;es des ressources al&eacute;atoire,
      * Un plateau contenant une base et des monstres
@@ -19,6 +23,7 @@ public class Simulation {
             nbLignes=20;
             nbColonnes=20;
         }
+        this.round=0;
         //initalise les terrain, plateau, ressources,et base
         this.terrain=new Terrain(nbLignes,nbColonnes);
         this.plateau=new Plateau(nbLignes,nbColonnes);
@@ -39,7 +44,7 @@ public class Simulation {
         this.terrain.affiche();
         ArrayList<Ouvrier> ouvriers = base.getAllOuvrier();
         for(Ouvrier o:ouvriers ){
-            while(o.inventaireVide()){
+            while(o.inventairePasPlein()){
                 Ressource nearestRessource = getNearestRessource(o);
                 if(nearestRessource==null){
                     break;
@@ -103,7 +108,12 @@ public class Simulation {
     public String tourNuit(){
         initNuit();
         ArrayList<Soldat> soldats = base.getAllSoldat();
-
+        for(Soldat so:soldats){
+            if(this.base.inventaire.size()!=0){
+                so.inventaire.add(this.base.inventaire.get(-1));
+                this.base.inventaire.remove(-1);
+            }
+        }
         while(plateau.aliveMonster()&&base.getCurrentHp()>0){
             plateau.affiche();
             soldats=plateau.placeSoldat(soldats);
@@ -117,11 +127,12 @@ public class Simulation {
             plateau.monsterMovement();
             plateau.monsterAttackBase(this.base);
             plateau.affiche();
-            System.out.println("\n\nIl reste "+this.base.getCurrentHp()+" vie à la base");
+            System.out.println("\nIl reste "+this.base.getCurrentHp()+" vie à la base");
         }
         if(plateau.aliveMonster()){
             return "Défaite";
         }
+        round+=1;
         return "Victoire";
     }
     private void initNuit(){

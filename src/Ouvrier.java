@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Ouvrier extends Agent {
+    public static int nbDeRecolte;
+    public static int nbDeGeneration;
     private final int capacite =3;
     private int pm;
 
@@ -23,8 +25,10 @@ public class Ouvrier extends Agent {
     }
 
     public void addRessource(Ressource e) {
-        if (inventaireVide())
+        if (inventairePasPlein()) {
             inventaire.add(e);
+            Ouvrier.nbDeRecolte+=1;
+        }
     }
 
     public void reinitPm(){
@@ -46,10 +50,11 @@ public class Ouvrier extends Agent {
         this.inventaire.removeAll(ressources);
         for(int i=0;i<nbMetal/3;i++){
             this.addRessource(new Ressource(GameData.RESSOURCE_TYPE[0][1],1));
+            Ouvrier.nbDeGeneration+=1;
         }
     }
 
-    public boolean inventaireVide() {
+    public boolean inventairePasPlein() {
         return inventaire.size() < capacite;
     }
 
