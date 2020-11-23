@@ -1,5 +1,4 @@
 public class GameData{
-    public static final int MONSTER_DENSITY = 10;
     public static final int RESSOURCE_DENSITY = 4;
     public static final int AGENT_DENSITY = 8;
     public static final int SOLDIER_REPARTITION = 15;

@@ -125,6 +125,7 @@ public class Plateau {
     public void monsterAttackBase(Base base){
         for(Monstre monstre:getAllMonster()){
             if(isMonsterNear(base.getX(), base.getY())){
+                System.out.println("Votre base à pris un coup");
                 base.prendreUnCoup();
             }
         }

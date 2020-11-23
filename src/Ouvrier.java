@@ -30,6 +30,9 @@ public class Ouvrier extends Agent {
             Ouvrier.nbDeRecolte+=1;
         }
     }
+    public void videInventaire() {
+        this.inventaire.clear();
+    }
 
     public void reinitPm(){
         this.pm=finalPm;

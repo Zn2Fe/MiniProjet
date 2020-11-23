@@ -15,7 +15,6 @@ public class Simulation {
      * Un plateau contenant une base et des monstres
      * @param nbLignes nombre de lignes du plateau et du terrain
      * @param nbColonnes nombre de colonnes du plateau et du terrain
-
      */
     public Simulation(int nbLignes,int nbColonnes){
         //définit le nomre de ligne et colonnes minimum à 5
@@ -39,10 +38,14 @@ public class Simulation {
             base.stockageAgent(GameData.newRandomAgent());
         }
     }
-    public String tourJour(){
+    public void tourJour(){
         initJour();
+        System.out.println("Le terrain se remplit de ressources ...");
         this.terrain.affiche();
         ArrayList<Ouvrier> ouvriers = base.getAllOuvrier();
+        for(Ouvrier ouvrier:ouvriers){
+            ouvrier.videInventaire();
+        }
         for(Ouvrier o:ouvriers ){
             while(o.inventairePasPlein()){
                 Ressource nearestRessource = getNearestRessource(o);
@@ -63,8 +66,9 @@ public class Simulation {
             base.stockageAgent(o);
         }
         base.craftAll();
+        System.out.println("Vos ouvriers ont récoltés des ressources et créer de l'équipement pour vos Soldats");
         this.terrain.affiche();
-        return "fin du jour";
+        System.out.println("La nuit Tombe ... \n\n");
     }
     private Ressource getNearestRessource(Ouvrier o){
         ArrayList<Ressource> ressources = new ArrayList<>();
@@ -105,19 +109,19 @@ public class Simulation {
             terrain.setCase(x,y,GameData.newRandomRessource());
         }
     }
-    public String tourNuit(){
+    public boolean tourNuit(){
         initNuit();
+        plateau.affiche();
         ArrayList<Soldat> soldats = base.getAllSoldat();
         for(Soldat so:soldats){
             if(this.base.inventaire.size()!=0){
-                so.inventaire.add(this.base.inventaire.get(-1));
-                this.base.inventaire.remove(-1);
+                so.inventaire.add(this.base.inventaire.get(0));
+                this.base.inventaire.remove(0);
             }
         }
+        System.out.println("Vos soldats vont défendre votre base");
         while(plateau.aliveMonster()&&base.getCurrentHp()>0){
-            plateau.affiche();
             soldats=plateau.placeSoldat(soldats);
-            plateau.affiche();
             for(Soldat soldat:soldats){
                 if(soldat.getX()!=-1){
                     plateau.soldatMoveToNearestMonster(soldat);
@@ -126,14 +130,14 @@ public class Simulation {
             plateau.soldatAttackMonster();
             plateau.monsterMovement();
             plateau.monsterAttackBase(this.base);
-            plateau.affiche();
-            System.out.println("\nIl reste "+this.base.getCurrentHp()+" vie à la base");
         }
         if(plateau.aliveMonster()){
-            return "Défaite";
+            System.out.println("Vos soldats n'ont pas réussi a protéger votre base");
+            return true;
         }
         round+=1;
-        return "Victoire";
+        System.out.println("\nIl reste "+this.base.getCurrentHp()+" vie à la base");
+        return false;
     }
     private void initNuit(){
         plateau.videPlateau();
@@ -149,5 +153,4 @@ public class Simulation {
             this.plateau.deplacer(x,y,GameData.newRandomMonster());
         }
     }
-
 }
